@@ -1,7 +1,7 @@
 CocoQuery
 =========
 
-A Android library inspire by AndroidQuery, bring chain style UI programming APi to UI development, aim to simplify android development.
+A Android library inspire by AndroidQuery, bring chain style UI programming APi to UI development, aim to simplify android UI development.
 
 Why
 =========
@@ -50,14 +50,33 @@ I love the way develop android UI logic with AndroidQuery. Compare those code sn
  No nullpoint checking, no boring setter, short code is beautiful, isn't it?
 
 
- Why I create a new library rather than continue using AndroidQuery?
+ Why another wheel?
  ============
 
  AndroidQuery was created quite many years ago, try to cover most part of android development including ui,http request,rest and so on, which was good.
  It's might a good open-box solution, but not good enough in all particular area, like url imageview, httprequest. I prefer using Picosso like library to provide better performance, for example.
- Dragger and butterknife bring DI to practical level, I believe it would be mainframe programming style. it would need a better partner.
- The last reason is AndroidQuery is not well maintained any more.
+butterknife bring DI to practical level, I believe it would be mainstream programming style,and it would need a better partner.
+ Despite of those, AndroidQuery has not update for quite long time.
 
- So, I want to create a library concentrate to simplify UI layer programming, can be integrated well with other libraries.
+ So, I decided to create a library concentrate to simplify UI layer programming, and can be integrated well with other libraries.
+ 
+ CocoQuery is NOT a
+ ============
+ Async http request library
+ There are already tons of libraries doing this, you can feel free to choose the one you like, for example https://github.com/kevinsawicki/http-request, chain style programming.
+ 
+ Image downloading library
+ I understand this is important for you, still, other libraries, like Picasso mentioned before can do this quite well.
+ 
+ Dependency & Compatibility
+ ============
+ No any other dependency.
+ Most of api compatible with AndroidQuery, and ajax related api been removed.
+ Android Api 8+
+ 
+ Extension
+ ============
+ You can extend the class to adapt your custom view or 3rd party libraries.
+ TODO.....
 
 
