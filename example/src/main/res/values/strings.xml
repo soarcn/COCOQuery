@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">My Module</string>
+    <string name="another_task">This is another CocoTask with ProgressDialog</string>
+</resources>
