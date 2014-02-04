@@ -25,6 +25,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.WebView;
+import android.widget.AbsListView;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -47,10 +48,10 @@ import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
  */
 public abstract class AbstractViewQuery<T extends AbstractViewQuery<T>> {
 
-    View root;
-    Activity act;
-    Context context;
-    CocoQuery<?> query;
+    protected View root;
+    protected Activity act;
+    protected Context context;
+    protected CocoQuery<?> query;
 
     protected View view;
     protected Object progress;
@@ -1208,4 +1209,20 @@ public abstract class AbstractViewQuery<T extends AbstractViewQuery<T>> {
         });
     }
 
+
+    public T scrolled(AbsListView.OnScrollListener listener) {
+        if (view instanceof AbsListView) {
+            ((AbsListView)view).setOnScrollListener(listener);
+        }
+        return self();
+    }
+
+    /**
+     * Return current view
+     * @param <E>
+     * @return
+     */
+    public final <E extends View> E getView () {
+        return (E) view;
+    }
 }

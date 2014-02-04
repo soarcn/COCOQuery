@@ -28,7 +28,7 @@ public class CocoQuery<T extends AbstractViewQuery<T>> {
      *
      * @param myclass
      */
-    public static void setQueryClass(Class<AbstractViewQuery> myclass) {
+    public static void setQueryClass(Class myclass) {
         query = myclass;
     }
 
@@ -108,6 +108,16 @@ public class CocoQuery<T extends AbstractViewQuery<T>> {
      */
     public T v(int id) {
         return create(findView(id));
+    }
+
+    /**
+     * replace root view with given view
+     * @param view
+     * @return
+     */
+    public CocoQuery<T> recycle(View view) {
+        this.root = view;
+        return this;
     }
 
 
