@@ -1,7 +1,7 @@
 CocoQuery
 =========
 
-A Android library inspire by AndroidQuery, bring chain style UI programming APi to UI development, aim to simplify android UI development.
+An Android library inspire by AndroidQuery, bring chain style UI programming APi to UI development, aim to simplify android UI development.
 
 Motivation
 =========
