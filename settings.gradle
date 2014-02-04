@@ -1,2 +1,3 @@
+include ':ext'
 include 'query'
 include 'example'
