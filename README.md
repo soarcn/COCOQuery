@@ -56,8 +56,11 @@ I love the way develop android UI logic with AndroidQuery. Compare those code sn
 =========
 
  AndroidQuery was created quite many years ago, try to cover most part of android development including ui,http request,rest and so on, which was good.
+ 
  It's might a good open-box solution, but not good enough in all particular area, like url imageview, httprequest. I prefer using Picosso like library to provide better performance, for example.
+ 
 butterknife bring DI to practical level, I believe it would be mainstream programming style,and it would need a better partner.
+
  Despite of those, AndroidQuery has not update for quite long time.
 
  So, I decided to create a library concentrate to simplify UI layer programming, and can be integrated well with other libraries.
@@ -87,30 +90,29 @@ or in Fragment
         CocoQuery q = new CocoQuery(getActivity(),v);
 ```
 
-please NEVER keep CocoQuery instance into static field.
+please *NEVER* keep CocoQuery instance into static field.
 
  CocoQuery is NOT a
 =========
- Async http request library
----------
+
+#####Async http request library
  There are already tons of libraries doing this, you can feel free to choose the one you like, for example https://github.com/kevinsawicki/http-request, chain style programming.
  
- Image downloading library
----------
+#####Image downloading library
  I understand this is important for you, still, other libraries, like Picasso mentioned before can do this quite well.
  
  Dependency & Compatibility
 =========
- - No any other dependency.
+ - *NO* any other dependency.
  - Most of api compatible with AndroidQuery, and ajax related api been removed.
  - Android Api 8+
  
- Extension
+Extension
 =========
  You can extend the class to adapt your custom view or 3rd party libraries.
 
-extend AbstractViewQuery
----------
+#####Extend AbstractViewQuery
+
 ``` java
 public class YourQuery extends AbstractViewQuery<DefaultQuery> {
 
@@ -130,21 +132,19 @@ public class YourQuery extends AbstractViewQuery<DefaultQuery> {
     }
  ```
 
-build CocoQuery
----------
+#####Build CocoQuery
 You only need to do this only one time, so onCreate in Application would be a ideal place
 
 ``` java
 CocoQuery.setQueryClass(YourQuery.class);
 ```
 
-and
----------
+#####And
 ``` java
 CocoQuery<YourQuery> q = new CocoQuery(activity);
 ```
 
-you can also extend CocoQuery for other functions you need.
+You can also extend CocoQuery for other functions you need.
 
 
 License
