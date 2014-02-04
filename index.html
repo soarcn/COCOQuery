@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>CocoQuery by soarcn</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>CocoQuery</h1>
+        <p>CocoQuery</p>
+        <p class="view"><a href="https://github.com/soarcn/COCOQuery">View the Project on GitHub <small>soarcn/COCOQuery</small></a></p>
+        <ul>
+          <li><a href="https://github.com/soarcn/COCOQuery/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/soarcn/COCOQuery/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/soarcn/COCOQuery">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="cocoquery" class="anchor" href="#cocoquery"><span class="octicon octicon-link"></span></a>CocoQuery</h1>
+
+<p>A Android library inspire by AndroidQuery, bring chain style UI programming APi to UI development, aim to simplify android UI development.</p>
+
+<h1>
+<a name="motivation" class="anchor" href="#motivation"><span class="octicon octicon-link"></span></a>Motivation</h1>
+
+<p>I love the way develop android UI logic with AndroidQuery. Compare those code snippet</p>
+
+<div class="highlight highlight-java"><pre>
+        <span class="n">ImageView</span> <span class="n">tbView</span> <span class="o">=</span> <span class="o">(</span><span class="n">ImageView</span><span class="o">)</span> <span class="n">view</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">icon</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">tbView</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+
+                <span class="n">tbView</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">icon</span><span class="o">);</span>
+                <span class="n">tbView</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">VISIBLE</span><span class="o">);</span>
+
+                <span class="n">tbView</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+
+        <span class="o">}</span>
+
+        <span class="n">TextView</span> <span class="n">nameView</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">view</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">nameView</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+                <span class="n">nameView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">content</span><span class="o">.</span><span class="na">getPname</span><span class="o">());</span>
+        <span class="o">}</span>
+
+        <span class="n">TextView</span> <span class="n">timeView</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">view</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">time</span><span class="o">);</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="n">timeView</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+                <span class="kt">long</span> <span class="n">now</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+                <span class="n">timeView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">FormatUtility</span><span class="o">.</span><span class="na">relativeTime</span><span class="o">(</span><span class="n">now</span><span class="o">,</span> <span class="n">content</span><span class="o">.</span><span class="na">getCreate</span><span class="o">()));</span>
+                <span class="n">timeView</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">VISIBLE</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">TextView</span> <span class="n">descView</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">view</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">desc</span><span class="o">);</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="n">descView</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+                <span class="n">descView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">content</span><span class="o">.</span><span class="na">getDesc</span><span class="o">());</span>
+                <span class="n">descView</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">VISIBLE</span><span class="o">);</span>
+        <span class="o">}</span>
+</pre></div>
+
+<p>After</p>
+
+<div class="highlight highlight-java"><pre>         <span class="n">aq</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">icon</span><span class="o">).</span><span class="na">image</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">icon</span><span class="o">).</span><span class="na">visible</span><span class="o">().</span><span class="na">clicked</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+         <span class="n">aq</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">name</span><span class="o">).</span><span class="na">text</span><span class="o">(</span><span class="n">content</span><span class="o">.</span><span class="na">getPname</span><span class="o">());</span>
+         <span class="n">aq</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">time</span><span class="o">).</span><span class="na">text</span><span class="o">(</span><span class="n">FormatUtility</span><span class="o">.</span><span class="na">relativeTime</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">(),</span> <span class="n">content</span><span class="o">.</span><span class="na">getCreate</span><span class="o">())).</span><span class="na">visible</span><span class="o">();</span>
+         <span class="n">aq</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">desc</span><span class="o">).</span><span class="na">text</span><span class="o">(</span><span class="n">content</span><span class="o">.</span><span class="na">getDesc</span><span class="o">()).</span><span class="na">visible</span><span class="o">();</span>
+</pre></div>
+
+<p>No nullpoint checking, no boring setter, short code is beautiful, isn't it?</p>
+
+<h1>
+<a name="-why-another-wheel" class="anchor" href="#-why-another-wheel"><span class="octicon octicon-link"></span></a> Why another wheel?</h1>
+
+<p>AndroidQuery was created quite many years ago, try to cover most part of android development including ui,http request,rest and so on, which was good.</p>
+
+<p>It's might a good open-box solution, but not good enough in all particular area, like url imageview, httprequest. I prefer using Picosso like library to provide better performance, for example.</p>
+
+<p>butterknife bring DI to practical level, I believe it would be mainstream programming style,and it would need a better partner.</p>
+
+<p>Despite of those, AndroidQuery has not update for quite long time.</p>
+
+<p>So, I decided to create a library concentrate to simplify UI layer programming, and can be integrated well with other libraries.</p>
+
+<h1>
+<a name="-usage" class="anchor" href="#-usage"><span class="octicon octicon-link"></span></a> Usage</h1>
+
+<div class="highlight highlight-xml"><pre> compile 'com.cocosw:query:0.1'
+</pre></div>
+
+<p>or just grab the jar file into your libs folder</p>
+
+<p>Instant CocoQuery in your Activity or Fragment</p>
+
+<div class="highlight highlight-java"><pre>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CocoQuery</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</pre></div>
+
+<p>or in Fragment</p>
+
+<div class="highlight highlight-java"><pre>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">View</span> <span class="nf">onCreateView</span><span class="o">(</span><span class="n">LayoutInflater</span> <span class="n">inflater</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">container</span><span class="o">,</span> <span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">View</span> <span class="n">v</span> <span class="o">=</span> <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">layoutId</span><span class="o">(),</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="n">CocoQuery</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CocoQuery</span><span class="o">(</span><span class="n">getActivity</span><span class="o">(),</span><span class="n">v</span><span class="o">);</span>
+</pre></div>
+
+<p>please <em>NEVER</em> keep CocoQuery instance into static field.</p>
+
+<h1>
+<a name="-cocoquery-is-not-a" class="anchor" href="#-cocoquery-is-not-a"><span class="octicon octicon-link"></span></a> CocoQuery is NOT a</h1>
+
+<h5>
+<a name="async-http-request-library" class="anchor" href="#async-http-request-library"><span class="octicon octicon-link"></span></a>Async http request library</h5>
+
+<p>There are already tons of libraries doing this, you can feel free to choose the one you like, for example <a href="https://github.com/kevinsawicki/http-request">https://github.com/kevinsawicki/http-request</a>, chain style programming.</p>
+
+<h5>
+<a name="image-downloading-library" class="anchor" href="#image-downloading-library"><span class="octicon octicon-link"></span></a>Image downloading library</h5>
+
+<p>I understand this is important for you, still, other libraries, like Picasso mentioned before can do this quite well.</p>
+
+<h1>
+<a name="-dependency--compatibility" class="anchor" href="#-dependency--compatibility"><span class="octicon octicon-link"></span></a> Dependency &amp; Compatibility</h1>
+
+<ul>
+<li>
+<em>NO</em> any other dependency.</li>
+<li>Most of api compatible with AndroidQuery, and ajax related api been removed.</li>
+<li>Android Api 8+</li>
+</ul><h1>
+<a name="extension" class="anchor" href="#extension"><span class="octicon octicon-link"></span></a>Extension</h1>
+
+<p>You can extend the class to adapt your custom view or 3rd party libraries.</p>
+
+<h5>
+<a name="extend-abstractviewquery" class="anchor" href="#extend-abstractviewquery"><span class="octicon octicon-link"></span></a>Extend AbstractViewQuery</h5>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">YourQuery</span> <span class="kd">extends</span> <span class="n">AbstractViewQuery</span><span class="o">&lt;</span><span class="n">DefaultQuery</span><span class="o">&gt;</span> <span class="o">{</span>
+
+   <span class="c1">// constructor.....</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Your own method to chain</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param resid the resid</span>
+<span class="cm">     * @return self</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="n">T</span> <span class="nf">image</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">view</span> <span class="k">instanceof</span> <span class="n">ImageView</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Picasso</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">context</span><span class="o">).</span><span class="na">load</span><span class="o">(</span><span class="n">url</span><span class="o">).</span><span class="na">into</span><span class="o">((</span><span class="n">ImageView</span><span class="o">)</span><span class="n">view</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="nf">self</span><span class="o">();</span>
+    <span class="o">}</span>
+</pre></div>
+
+<h5>
+<a name="build-cocoquery" class="anchor" href="#build-cocoquery"><span class="octicon octicon-link"></span></a>Build CocoQuery</h5>
+
+<p>You only need to do this only one time, so onCreate in Application would be a ideal place</p>
+
+<div class="highlight highlight-java"><pre><span class="n">CocoQuery</span><span class="o">.</span><span class="na">setQueryClass</span><span class="o">(</span><span class="n">YourQuery</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</pre></div>
+
+<h5>
+<a name="and" class="anchor" href="#and"><span class="octicon octicon-link"></span></a>And</h5>
+
+<div class="highlight highlight-java"><pre><span class="n">CocoQuery</span><span class="o">&lt;</span><span class="n">YourQuery</span><span class="o">&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CocoQuery</span><span class="o">(</span><span class="n">activity</span><span class="o">);</span>
+</pre></div>
+
+<p>You can also extend CocoQuery for other functions you need.</p>
+
+<h1>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>Apache License, Version 2.0</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/soarcn">soarcn</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
