@@ -3,7 +3,7 @@ CocoQuery
 
 A Android library inspire by AndroidQuery, bring chain style UI programming APi to UI development, aim to simplify android UI development.
 
-Why
+Motivation
 =========
 I love the way develop android UI logic with AndroidQuery. Compare those code snippet
 
@@ -40,6 +40,8 @@ I love the way develop android UI logic with AndroidQuery. Compare those code sn
         }
  ```
 
+ After
+
  ``` java
          aq.id(R.id.icon).image(R.drawable.icon).visible().clicked(this);
          aq.id(R.id.name).text(content.getPname());
@@ -51,7 +53,7 @@ I love the way develop android UI logic with AndroidQuery. Compare those code sn
 
 
  Why another wheel?
- ============
+=========
 
  AndroidQuery was created quite many years ago, try to cover most part of android development including ui,http request,rest and so on, which was good.
  It's might a good open-box solution, but not good enough in all particular area, like url imageview, httprequest. I prefer using Picosso like library to provide better performance, for example.
@@ -59,24 +61,94 @@ butterknife bring DI to practical level, I believe it would be mainstream progra
  Despite of those, AndroidQuery has not update for quite long time.
 
  So, I decided to create a library concentrate to simplify UI layer programming, and can be integrated well with other libraries.
- 
+
+
+ Usage
+========
+
+```xml
+ compile 'com.cocosw:query:0.1'
+```
+or just grab the jar file into your libs folder
+
+Instant CocoQuery in your Activity or Fragment
+
+``` java
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        q = new CocoQuery(this);
+```
+or in Fragment
+``` java
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(layoutId(), null);
+        CocoQuery q = new CocoQuery(getActivity(),v);
+```
+
+please NEVER keep CocoQuery instance into static field.
+
  CocoQuery is NOT a
- ============
+=========
  Async http request library
+---------
  There are already tons of libraries doing this, you can feel free to choose the one you like, for example https://github.com/kevinsawicki/http-request, chain style programming.
  
  Image downloading library
+---------
  I understand this is important for you, still, other libraries, like Picasso mentioned before can do this quite well.
  
  Dependency & Compatibility
- ============
- No any other dependency.
- Most of api compatible with AndroidQuery, and ajax related api been removed.
- Android Api 8+
+=========
+ - No any other dependency.
+ - Most of api compatible with AndroidQuery, and ajax related api been removed.
+ - Android Api 8+
  
  Extension
- ============
+=========
  You can extend the class to adapt your custom view or 3rd party libraries.
- TODO.....
+
+extend AbstractViewQuery
+---------
+``` java
+public class YourQuery extends AbstractViewQuery<DefaultQuery> {
+
+   // constructor.....
+
+    /**
+     * Your own method to chain
+     *
+     * @param resid the resid
+     * @return self
+     */
+    public T image(String url) {
+        if (view instanceof ImageView) {
+            Picasso.with(context).load(url).into((ImageView)view);
+        }
+        return self();
+    }
+ ```
+
+build CocoQuery
+---------
+You only need to do this only one time, so onCreate in Application would be a ideal place
+
+``` java
+CocoQuery.setQueryClass(YourQuery.class);
+```
+
+and
+---------
+``` java
+CocoQuery<YourQuery> q = new CocoQuery(activity);
+```
+
+you can also extend CocoQuery for other functions you need.
+
+
+License
+==========
+Apache License, Version 2.0
 
 
