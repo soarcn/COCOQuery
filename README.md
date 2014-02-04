@@ -152,3 +152,6 @@ License
 Apache License, Version 2.0
 
 
+Contribution
+==========
+There are many codeline directly copy from AndroidQuery https://github.com/androidquery/androidquery
