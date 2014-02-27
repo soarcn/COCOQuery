@@ -534,6 +534,8 @@ public abstract class AbstractViewQuery<T extends AbstractViewQuery<T>> {
         return self();
     }
 
+
+
     /**
      * Set view background color.
      *
@@ -667,6 +669,25 @@ public abstract class AbstractViewQuery<T extends AbstractViewQuery<T>> {
 
             AdapterView<?> alv = (AdapterView<?>) view;
             alv.setOnItemClickListener(listener);
+
+        }
+
+        return self();
+
+    }
+
+    /**
+     * Register a callback method for when an item is long clicked in the ListView.
+     *
+     * @param listener The callback method.
+     * @return self
+     */
+    public T itemLongClicked(AdapterView.OnItemLongClickListener listener) {
+
+        if (view instanceof AdapterView) {
+
+            AdapterView<?> alv = (AdapterView<?>) view;
+            alv.setOnItemLongClickListener(listener);
 
         }
 
