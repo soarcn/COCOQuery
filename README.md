@@ -70,8 +70,15 @@ butterknife bring DI to practical level, I believe it would be mainstream progra
 ========
 
 ```xml
- compile 'com.cocosw:query:0.1'
+ compile 'com.cocosw:query:0.+'
 ```
+
+or 
+
+```xml
+ compile 'com.cocosw.query:ext:0.+'
+```
+
 or just grab the jar file into your libs folder
 
 Instant CocoQuery in your Activity or Fragment
@@ -101,11 +108,16 @@ please *NEVER* keep CocoQuery instance into static field.
 #####Image downloading library
  I understand this is important for you, still, other libraries, like Picasso mentioned before can do this quite well.
  
+ If you want to bring use Picasso with CocoQuery style, like q.id(R.id.image).image("http://img"); you can use ext artifact
+ 
  Dependency & Compatibility
 =========
  - *NO* any other dependency.
  - Most of api compatible with AndroidQuery, and ajax related api been removed.
  - Android Api 8+
+ 
+ For ext artificat:
+ - OKHttp 1.5 and Picasso 2.2
  
 Extension
 =========
