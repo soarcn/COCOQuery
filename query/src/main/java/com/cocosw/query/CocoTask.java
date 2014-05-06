@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
+import android.os.Build;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -28,6 +29,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
     private T result;
 
     private View view;
+    private boolean running;
 
     public abstract T backgroundWork() throws Exception;
 
@@ -185,6 +187,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
                     showProgress(false);
                     end();
                 }
+                running = false;
             }
 
             @Override
@@ -217,7 +220,9 @@ public abstract class CocoTask<T> implements OnCancelListener {
                 progressUpdate(values);
             }
 
-        }.execute();
+        };
+        execute(task);
+        running = true;
     }
 
     protected void showProgress(final boolean show) {
@@ -351,5 +356,27 @@ public abstract class CocoTask<T> implements OnCancelListener {
             }
         }
 
+    }
+
+    /**
+     * Execute an {@link AsyncTask} on a thread pool.
+     *
+     * @param task Task to execute.
+     * @param args Optional arguments to pass to {@link AsyncTask#execute(Object[])}.
+     * @param <T> Task argument type.
+     */
+    private static <T> void execute(AsyncTask<T, ?, ?> task, T... args) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.DONUT) {
+            throw new UnsupportedOperationException("This class can only be used on API 4 and newer.");
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            task.execute(args);
+        } else {
+            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args);
+        }
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 }

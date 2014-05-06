@@ -341,6 +341,34 @@ public class CocoQuery<T extends AbstractViewQuery<T>> {
         builder.show();
     }
 
+    /**
+     * Open a dialog with single choice list
+     *
+     * @param title
+     * @param list
+     * @param listener
+     */
+    public void dialog(final int title, int list, DialogInterface.OnClickListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(title)
+                .setItems(list, listener);
+        builder.create().show();
+    }
+
+    /**
+     * Open a dialog with single choice list
+     *
+     * @param title
+     * @param list
+     * @param listener
+     */
+    public void dialog(final int title, CharSequence[] list, DialogInterface.OnClickListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(title)
+                .setItems(list, listener);
+        builder.create().show();
+    }
+
     public CocoQuery task(final CocoTask<?> task) {
         taskpool.put(task.hashCode(), task);
         task.async(act);
