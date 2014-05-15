@@ -3,6 +3,7 @@ package com.cocosw.query;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
@@ -48,7 +49,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
 
     @Override
     public int hashCode() {
-        int result = task != null ? task.hashCode() : (int)Math.random()*1000;
+        int result = task != null ? task.hashCode() : (int)(Math.random()*1000);
         result = 31 * result + (act != null ? act.hashCode() : 0);
         return result;
     }
@@ -162,6 +163,10 @@ public abstract class CocoTask<T> implements OnCancelListener {
             return;
         }
 
+        runtask(act);
+    }
+
+    private void runtask(final Context act) {
         task = new AsyncTask<Void, String, T>() {
 
             private Exception e;
@@ -345,7 +350,6 @@ public abstract class CocoTask<T> implements OnCancelListener {
                 }
 
             } else if (p instanceof Activity) {
-
                 Activity act = (Activity) p;
                 act.setProgressBarIndeterminateVisibility(show);
                 act.setProgressBarVisibility(show);
@@ -378,5 +382,9 @@ public abstract class CocoTask<T> implements OnCancelListener {
 
     public boolean isRunning() {
         return running;
+    }
+
+    public void async(Context context) {
+         runtask(context);
     }
 }

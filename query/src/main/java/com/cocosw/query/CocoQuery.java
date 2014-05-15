@@ -371,7 +371,10 @@ public class CocoQuery<T extends AbstractViewQuery<T>> {
 
     public CocoQuery task(final CocoTask<?> task) {
         taskpool.put(task.hashCode(), task);
-        task.async(act);
+        if (act!=null)
+            task.async(act);
+        else
+            task.async(getContext());
         return this;
     }
 
