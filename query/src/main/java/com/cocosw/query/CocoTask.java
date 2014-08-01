@@ -6,8 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
-import android.os.AsyncTask;
-import android.os.AsyncTask.Status;
 import android.os.Build;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -167,7 +165,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
     }
 
     private void runtask(final Context act) {
-        task = new AsyncTask<Void, String, T>() {
+        task = new AsyncTask<Object, String, T>() {
 
             private Exception e;
 
@@ -196,7 +194,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
             }
 
             @Override
-            protected T doInBackground(final Void... params) {
+            protected T doInBackground(final Object... params) {
                 try {
                     return backgroundWork();
                 } catch (final Exception e) {
@@ -262,7 +260,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
      */
     public void cancel() {
         if (task != null && !task.isCancelled()
-                && task.getStatus() != Status.FINISHED) {
+                && task.getStatus() != AsyncTask.Status.FINISHED) {
             task.cancel(true);
         }
     }
@@ -366,18 +364,10 @@ public abstract class CocoTask<T> implements OnCancelListener {
      * Execute an {@link AsyncTask} on a thread pool.
      *
      * @param task Task to execute.
-     * @param args Optional arguments to pass to {@link AsyncTask#execute(Object[])}.
      * @param <T> Task argument type.
      */
-    private static <T> void execute(AsyncTask<T, ?, ?> task, T... args) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.DONUT) {
-            throw new UnsupportedOperationException("This class can only be used on API 4 and newer.");
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            task.execute(args);
-        } else {
-            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args);
-        }
+    private static <T> void execute(AsyncTask<T, ?, ?> task) {
+         task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public boolean isRunning() {
