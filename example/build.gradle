@@ -20,6 +20,6 @@ apply from: '../config/android.gradle'
 
 dependencies {
     compile project(':query')
-    compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:appcompat-v7:19.+'
     compile 'com.jakewharton:butterknife:5.0.1'
 }

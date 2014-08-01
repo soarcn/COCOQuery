@@ -76,21 +76,21 @@ if (!ext.properties.containsKey('nexusPassword')) {
 afterEvaluate { project ->
     uploadArchives {
         repositories {
-            mavenDeployer {
-                configurePOM(pom)
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-                repository(url: sonatypeRepositoryUrl) {
-                    authentication(userName: nexusUsername, password: nexusPassword)
-                }
-            }
-
 //            mavenDeployer {
 //                configurePOM(pom)
 //                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 //
-//                repository(url: githubRepositoryUrl)
+//                repository(url: sonatypeRepositoryUrl) {
+//                    authentication(userName: nexusUsername, password: nexusPassword)
+//                }
 //            }
+
+            mavenDeployer {
+                configurePOM(pom)
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                repository(url: githubRepositoryUrl)
+            }
         }
     }
 
@@ -110,7 +110,7 @@ afterEvaluate { project ->
 
     task androidSourcesJar(type: Jar) {
         classifier = 'sources'
-        from android.sourceSets.main.allSource
+        from android.sourceSets.main.java.srcDirs
     }
 
 
