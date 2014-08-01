@@ -33,6 +33,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -1211,6 +1212,34 @@ public abstract class AbstractViewQuery<T extends AbstractViewQuery<T>> {
             if (view instanceof TextView) {
                 ((TextView)view).setAutoLinkMask(Linkify.ALL);
                 text(url);
+            }
+        }
+        return self();
+    }
+
+
+    public T smoothScrollTo(final int position) {
+        if (view instanceof ListView) {
+            final ListView listView = (ListView) view;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                listView.smoothScrollToPositionFromTop(position, 0);
+                listView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Mock touchEvent to stop listView Scrolling.
+                        listView.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(),
+                                System.currentTimeMillis(), MotionEvent.ACTION_DOWN, 0, 0, 0));
+                    }
+                }, 150 - 20);
+
+                listView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.setSelectionFromTop(position, 0);
+                    }
+                }, 150);
+            } else {
+                listView.setSelectionFromTop(position, 0);
             }
         }
         return self();
