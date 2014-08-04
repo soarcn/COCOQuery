@@ -23,6 +23,16 @@ configurations {
     }
 }
 
+android.libraryVariants.all { variant ->
+    def jarTask = project.tasks.create(name: "jar${variant.name.capitalize()}", type: Jar) {
+        from variant.javaCompile.destinationDir
+        exclude "**/R.class"
+        exclude "**/BuildConfig.class"
+    }
+    jarTask.dependsOn variant.javaCompile
+    artifacts.add('archives', jarTask);
+}
+
 def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false
 }
@@ -76,21 +86,21 @@ if (!ext.properties.containsKey('nexusPassword')) {
 afterEvaluate { project ->
     uploadArchives {
         repositories {
-//            mavenDeployer {
-//                configurePOM(pom)
-//                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-//
-//                repository(url: sonatypeRepositoryUrl) {
-//                    authentication(userName: nexusUsername, password: nexusPassword)
-//                }
-//            }
-
             mavenDeployer {
                 configurePOM(pom)
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                repository(url: githubRepositoryUrl)
+                repository(url: sonatypeRepositoryUrl) {
+                    authentication(userName: nexusUsername, password: nexusPassword)
+                }
             }
+
+//            mavenDeployer {
+//                configurePOM(pom)
+//                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+//
+//                repository(url: githubRepositoryUrl)
+//            }
         }
     }
 
@@ -100,7 +110,8 @@ afterEvaluate { project ->
     }
 
     task androidReleaseJar(type: Jar, dependsOn: assembleRelease) {
-        from "$buildDir/classes/release/"
+//        from fileTree(dir:"$buildDir/classes/release/")
+        from android.sourceSets.main.java
     }
 
     task androidJavadocsJar(type: Jar) {
@@ -115,7 +126,7 @@ afterEvaluate { project ->
 
 
     artifacts {
-        archives androidReleaseJar
+        archives jarRelease
         archives androidSourcesJar
         archives androidJavadocsJar
     }

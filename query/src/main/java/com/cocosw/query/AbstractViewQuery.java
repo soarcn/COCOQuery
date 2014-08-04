@@ -515,11 +515,8 @@ public abstract class AbstractViewQuery<T extends AbstractViewQuery<T>> {
      * @param id the id
      * @return self
      */
-    @SuppressWarnings("deprecation")
     public T background(int id) {
-
         if (view != null) {
-
             if (id != 0) {
                 view.setBackgroundResource(id);
             } else {
@@ -529,9 +526,7 @@ public abstract class AbstractViewQuery<T extends AbstractViewQuery<T>> {
                 else
                     view.setBackground(null);
             }
-
         }
-
         return self();
     }
 
@@ -544,11 +539,9 @@ public abstract class AbstractViewQuery<T extends AbstractViewQuery<T>> {
      * @return self
      */
     public T backgroundColor(int color) {
-
         if (view != null) {
             view.setBackgroundColor(color);
         }
-
         return self();
     }
 
@@ -573,9 +566,7 @@ public abstract class AbstractViewQuery<T extends AbstractViewQuery<T>> {
      * @return self
      */
     public T dataChanged() {
-
         if (view instanceof AdapterView) {
-
             AdapterView<?> av = (AdapterView<?>) view;
             Adapter a = av.getAdapter();
 
