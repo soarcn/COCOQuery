@@ -236,6 +236,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
             if (show) {
                 dialog.show();
             } else {
+                if (dialog.isShowing())
                 dialog.dismiss();
             }
         }
@@ -344,6 +345,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
                 if (show) {
                     pd.show();
                 } else {
+                    if (pd.isShowing())
                     pd.dismiss();
                 }
 
