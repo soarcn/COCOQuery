@@ -21,9 +21,7 @@ apply from: '../config/maven_push.gradle'
 
 dependencies {
     compile project(':query')
-//    compile 'com.github.kevinsawicki:http-request:5.5'
-    compile 'com.squareup.okhttp:okhttp:1.5.+'
-    compile 'com.squareup.picasso:picasso:2.2.+'
+    compile 'com.squareup.picasso:picasso:2.+'
     compile 'com.android.support:support-v4:19.0.+'
 }
 
