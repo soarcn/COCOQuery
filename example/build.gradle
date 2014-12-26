@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply from: '../config/android.gradle'
+apply from: 'https://raw.githubusercontent.com/soarcn/gradle/master/android.gradle'
 
 dependencies {
     compile project(':query')
-    compile 'com.android.support:appcompat-v7:19.+'
+    compile 'com.android.support:appcompat-v7:20.0.0'
     compile 'com.jakewharton:butterknife:5.0.1'
 }

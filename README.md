@@ -1,5 +1,6 @@
 CocoQuery
 =========
+[![Build Status](https://travis-ci.org/soarcn/COCOQuery.svg)](https://travis-ci.org/soarcn/COCOQuery)
 
 An Android library inspire by AndroidQuery, bring chain style UI programming APi to UI development, aim to simplify android UI development.
 
