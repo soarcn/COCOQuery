@@ -6,10 +6,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
-import android.os.Build;
 import android.view.View;
 import android.widget.ProgressBar;
-
 
 import java.lang.ref.WeakReference;
 
@@ -47,7 +45,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
 
     @Override
     public int hashCode() {
-        int result = task != null ? task.hashCode() : (int)(Math.random()*1000);
+        int result = task != null ? task.hashCode() : (int) (Math.random() * 1000);
         result = 31 * result + (act != null ? act.hashCode() : 0);
         return result;
     }
@@ -99,7 +97,6 @@ public abstract class CocoTask<T> implements OnCancelListener {
     }
 
 
-
     void run() {
         try {
             result = backgroundWork();
@@ -113,6 +110,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
 
     /**
      * Progress view will only be shown during task is executing
+     *
      * @param progress
      * @return
      */
@@ -126,6 +124,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
 
     /**
      * Progress view will only be shown during task is executing
+     *
      * @param progress
      * @return
      */
@@ -138,6 +137,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
 
     /**
      * Progress view will only be shown during task is executing
+     *
      * @param progress
      * @return
      */
@@ -229,26 +229,35 @@ public abstract class CocoTask<T> implements OnCancelListener {
     }
 
     protected void showProgress(final boolean show) {
+        if (act.get() == null || act.get().isFinishing()) {
+            return;
+        }
         if (progress != null) {
             showProgress(progress.get(), null, show);
         }
         if (dialog != null) {
-            if (show) {
-                dialog.show();
-            } else {
-                if (dialog.isShowing())
-                dialog.dismiss();
+            try {
+                if (show) {
+                    if (!dialog.isShowing())
+                        dialog.show();
+                } else {
+                    if (dialog.isShowing())
+                        dialog.dismiss();
+                }
+            }catch (Throwable e) {
+
             }
         }
-            if (view != null) {
-                view.setVisibility(show == false ? View.VISIBLE
-                        : View.INVISIBLE);
-            }
+        if (view != null) {
+            view.setVisibility(!show ? View.VISIBLE
+                    : View.INVISIBLE);
+        }
     }
 
 
     /**
      * This fore view will be hide during task is executing, and visible after task done.
+     *
      * @param view
      */
     public CocoTask<T> view(final View view) {
@@ -318,9 +327,7 @@ public abstract class CocoTask<T> implements OnCancelListener {
         if (p != null) {
 
             if (p instanceof View) {
-
                 View pv = (View) p;
-
                 ProgressBar pbar = null;
 
                 if (p instanceof ProgressBar) {
@@ -333,22 +340,19 @@ public abstract class CocoTask<T> implements OnCancelListener {
                         pbar.setProgress(0);
                         pbar.setMax(100);
                     }
-
                 } else {
                     if (pbar == null || pbar.isIndeterminate()) {
                         pv.setVisibility(View.GONE);
                     }
                 }
             } else if (p instanceof Dialog) {
-
                 Dialog pd = (Dialog) p;
                 if (show) {
                     pd.show();
                 } else {
                     if (pd.isShowing())
-                    pd.dismiss();
+                        pd.dismiss();
                 }
-
             } else if (p instanceof Activity) {
                 Activity act = (Activity) p;
                 act.setProgressBarIndeterminateVisibility(show);
@@ -366,10 +370,10 @@ public abstract class CocoTask<T> implements OnCancelListener {
      * Execute an {@link AsyncTask} on a thread pool.
      *
      * @param task Task to execute.
-     * @param <T> Task argument type.
+     * @param <T>  Task argument type.
      */
     private static <T> void execute(AsyncTask<T, ?, ?> task) {
-         task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public boolean isRunning() {
@@ -377,6 +381,6 @@ public abstract class CocoTask<T> implements OnCancelListener {
     }
 
     public void async(Context context) {
-         runtask(context);
+        runtask(context);
     }
 }
