@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 Snowdream Mobile <yanghui1986527@gmail.com>
+ * Copyright (C) 2015 Kai Liao
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply from: '../config/android.gradle'
+apply from: 'https://raw.githubusercontent.com/soarcn/gradle/master/android.gradle'
+
 
 dependencies {
     compile project(':query')
-    compile 'com.android.support:appcompat-v7:19.+'
-    compile 'com.jakewharton:butterknife:5.0.1'
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.jakewharton:butterknife:6.1.0'
 }

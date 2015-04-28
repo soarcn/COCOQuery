@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply from: '../config/android-library.gradle'
-apply from: '../config/maven_push.gradle'
+apply from: 'https://raw.githubusercontent.com/soarcn/gradle/master/android-library.gradle'
+
 
 dependencies {
     compile project(':query')
-    compile 'com.squareup.picasso:picasso:2.+'
-    compile 'com.android.support:support-v4:19.0.+'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
 
